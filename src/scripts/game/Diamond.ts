@@ -1,13 +1,18 @@
+import * as PIXI from "pixi.js";
 import * as Matter from 'matter-js';
 import { App } from '../system/App';
 
 export class Diamond {
-    constructor(x, y) {
+    
+    sprite: PIXI.Sprite;
+    body: Matter.Body;
+    
+    constructor(x: number, y: number) {
         this.createSprite(x, y);
         App.app.ticker.add(this.update, this);
     }
 
-    createSprite(x, y) {
+    createSprite(x: number, y: number) {
         this.sprite = App.sprite("diamond");
         this.sprite.x = x;
         this.sprite.y = y;
@@ -22,7 +27,7 @@ export class Diamond {
     createBody() {
         this.body = Matter.Bodies.rectangle(this.sprite.width / 2 + this.sprite.x + this.sprite.parent.x, this.sprite.height / 2 + this.sprite.y + this.sprite.parent.y, this.sprite.width, this.sprite.height, {friction: 0, isStatic: true, render: { fillStyle: '#060a19' }});
         this.body.isSensor = true;
-        this.body.gameDiamond = this;
+        (this.body as any).gameDiamond = this;
         Matter.World.add(App.physics.world, this.body);
     }
 
