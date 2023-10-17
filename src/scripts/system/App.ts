@@ -6,7 +6,13 @@ import { Loader } from "./Loader";
 import { ScenesManager } from "./ScenesManager";
 
 class Application {
-    run(config) {
+    config: any;
+    app: PIXI.Application;
+    loader: Loader;
+    scenes: ScenesManager;
+    physics: Matter.Engine;
+
+    run(config: any) {
         gsap.registerPlugin(PixiPlugin);
         PixiPlugin.registerPIXI(PIXI);
 
@@ -33,11 +39,11 @@ class Application {
     }
     // [/06]
 
-    res(key) {
+    res(key: string) {
         return this.loader.resources[key].texture;
     }
 
-    sprite(key) {
+    sprite(key: string) {
         return new PIXI.Sprite(this.res(key));
     }
 
