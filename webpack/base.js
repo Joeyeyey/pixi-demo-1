@@ -10,6 +10,11 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: "ts-loader"
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
@@ -21,6 +26,9 @@ module.exports = {
         use: "file-loader"
       }
     ]
+  },
+  resolve: {
+    extensions: ['.ts', '.js'],
   },
   plugins: [
     new CleanWebpackPlugin({
