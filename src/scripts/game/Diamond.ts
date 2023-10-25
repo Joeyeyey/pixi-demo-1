@@ -12,19 +12,19 @@ export class Diamond {
         App.app.ticker.add(this.update, this);
     }
 
-    createSprite(x: number, y: number) {
+    createSprite(x: number, y: number): void {
         this.sprite = App.sprite("diamond");
         this.sprite.x = x;
         this.sprite.y = y;
     }
 
-    update() {
+    update(): void {
         if (this.sprite) {
             Matter.Body.setPosition(this.body, {x: this.sprite.width / 2 + this.sprite.x + this.sprite.parent.x, y: this.sprite.height / 2 + this.sprite.y + this.sprite.parent.y});
         }
     }
 
-    createBody() {
+    createBody(): void {
         this.body = Matter.Bodies.rectangle(this.sprite.width / 2 + this.sprite.x + this.sprite.parent.x, this.sprite.height / 2 + this.sprite.y + this.sprite.parent.y, this.sprite.width, this.sprite.height, {friction: 0, isStatic: true, render: { fillStyle: '#060a19' }});
         this.body.isSensor = true;
         (this.body as any).gameDiamond = this;
@@ -32,7 +32,7 @@ export class Diamond {
     }
 
     // [14]
-    destroy() {
+    destroy(): void {
         if (this.sprite) {
             App.app.ticker.remove(this.update, this);
             Matter.World.remove(App.physics.world, this.body);
